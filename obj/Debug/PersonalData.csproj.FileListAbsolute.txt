@@ -1,0 +1,16 @@
+C:\Users\Ruslan\source\repos\PersonalData\obj\Debug\PersonalData.csprojAssemblyReference.cache
+C:\Users\Ruslan\source\repos\PersonalData\obj\Debug\MainWindow.g.cs
+C:\Users\Ruslan\source\repos\PersonalData\obj\Debug\App.g.cs
+C:\Users\Ruslan\source\repos\PersonalData\obj\Debug\PersonalData_MarkupCompile.cache
+C:\Users\Ruslan\source\repos\PersonalData\obj\Debug\MainWindow.baml
+C:\Users\Ruslan\source\repos\PersonalData\obj\Debug\PersonalData.g.resources
+C:\Users\Ruslan\source\repos\PersonalData\obj\Debug\PersonalData.Properties.Resources.resources
+C:\Users\Ruslan\source\repos\PersonalData\obj\Debug\PersonalData.csproj.GenerateResource.cache
+C:\Users\Ruslan\source\repos\PersonalData\bin\Debug\PersonalData.exe.config
+C:\Users\Ruslan\source\repos\PersonalData\bin\Debug\PersonalData.exe
+C:\Users\Ruslan\source\repos\PersonalData\bin\Debug\PersonalData.pdb
+C:\Users\Ruslan\source\repos\PersonalData\obj\Debug\PersonalData.exe
+C:\Users\Ruslan\source\repos\PersonalData\obj\Debug\PersonalData.pdb
+C:\Users\Ruslan\source\repos\PersonalData\obj\Debug\Components\ViewWindow.g.cs
+C:\Users\Ruslan\source\repos\PersonalData\obj\Debug\PersonalData_MarkupCompile.lref
+C:\Users\Ruslan\source\repos\PersonalData\obj\Debug\Components\ViewWindow.baml
