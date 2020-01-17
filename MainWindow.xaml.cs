@@ -43,7 +43,7 @@ namespace PersonalData
             CollectionViewSource.GetDefaultView(lvAccounts.ItemsSource).Refresh();
         }
 
-        private void Add_Client(object sender, RoutedEventArgs e)
+        private void New_Client(object sender, RoutedEventArgs e)
         {
             ViewWindow viewWindow = new ViewWindow();
             viewWindow.Owner = Application.Current.MainWindow;

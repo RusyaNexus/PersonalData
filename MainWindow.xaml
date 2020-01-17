@@ -9,7 +9,7 @@
         MinHeight="700" 
         Height="700" 
         MinWidth="1000"
-        Width="1000" >
+        Width="1000">
 
     <Grid Margin="10">
 
@@ -50,9 +50,9 @@
         </Grid>
 
         <Grid Grid.Row="2">
-            <Button Name="AddClient"
-                    Content="Добавить клиента"
-                    Click="Add_Client"/>
+            <Button Name="NewClient"
+                    Content="Новый клиент"
+                    Click="New_Client"/>
         </Grid>
 
     </Grid>
