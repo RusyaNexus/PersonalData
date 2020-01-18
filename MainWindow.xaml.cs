@@ -1,29 +1,22 @@
 ﻿using PersonalData.Components;
+using PersonalData.Dapper;
 using PersonalData.Models;
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
 namespace PersonalData
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
 
-            List<Account> items = new List<Account>();
-            items.Add(new Account() { UserID = 34, Surname = "Мерчанский", Name = "Руслан", MiddleName = "Юрьевич", Gender = SexType.Male, Birthday = new DateTime(1998, 2, 22), Country = "Украина", Region = "Харьковская", City = "Харьков", Address = "Тест", Phone = new List<int> { 0676813358, 911, 332 }, Email = "rusya998@gmail.com", AsFound = "В интернете" });
-            items.Add(new Account() { UserID = 23, Surname = "Тестович", Name = "Иван", MiddleName = "Иванович", Gender = SexType.Male, Birthday = new DateTime(1995, 4, 12), Email = "testovich@gmail.com" });
-            items.Add(new Account() { UserID = 65, Surname = "Иванов", Name = "Виктор", MiddleName = "Викторович", Gender = SexType.Male, Birthday = new DateTime(1991, 7, 4), Email = "ivanov@gmail.com" });
-            items.Add(new Account() { UserID = 86, Surname = "Квочка", Name = "Наталья", MiddleName = "Игоревна", Gender = SexType.Female, Birthday = new DateTime(1994, 2, 22), Email = "kvochka@gmail.com" });
-            lvAccounts.ItemsSource = items;
-
+            var accounts = Data.GetAccounts();
+            lvAccounts.ItemsSource = new ObservableCollection<Account>(accounts);
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(lvAccounts.ItemsSource);
             view.Filter = userFilter;
         }
@@ -45,9 +38,47 @@ namespace PersonalData
 
         private void New_Client(object sender, RoutedEventArgs e)
         {
-            ViewWindow viewWindow = new ViewWindow();
+            var viewWindow = new ViewWindow();
             viewWindow.Owner = Application.Current.MainWindow;
             viewWindow.ShowDialog();
+        }
+
+        private void Edit_Client(object sender, RoutedEventArgs e)
+        {
+            if ((sender as Button)?.DataContext is Account account)
+            {
+                var viewWindow = new ViewWindow(account);
+                viewWindow.Owner = Application.Current.MainWindow;
+                viewWindow.ShowDialog();
+
+                (lvAccounts.ItemsSource as ObservableCollection<Account>).Add(account);
+                MessageBox.Show("Аккаунт был успешно изменен!", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private void Delete_Client(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if ((sender as Button)?.DataContext is Account account)
+                {
+                    //Dapper.Data.DeleteAccount(account.Id);
+                    (lvAccounts.ItemsSource as ObservableCollection<Account>).Remove(account);
+                    MessageBox.Show("Аккаунт был успешно удален!", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void lvAccounts_RowDetailsVisibilityChanged(object sender, DataGridRowDetailsEventArgs e)
+        {
+            if (e.Row.DetailsVisibility == Visibility.Visible && e.Row.DataContext is Account account)
+            {
+                account.Phone = Data.GetPhones(account.Id);
+            }
         }
     }
 }

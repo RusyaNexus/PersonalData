@@ -1,38 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace PersonalData.Models
 {
     public enum SexType { Male, Female };
 
-    public class Account
+    public class Account : INotifyPropertyChanged
     {
-        public int UserID { get; set; }
-
-        // ФИО
+        public int Id { get; set; }
         public string Surname { get; set; }
         public string Name { get; set; }
         public string MiddleName { get; set; }
-
-        // Пол
         public SexType Gender { get; set; }
-
-        // Дата рождения
         public DateTime Birthday { get; set; }
-
-        // Страна, область, город, адрес
         public string Country { get; set; }
         public string Region { get; set; }
         public string City { get; set; }
         public string Address { get; set; }
 
-        // Контактные телефоны: Мобильный + дополнительные 2
-        public List<int> Phone { get; set; }
+        private List<string> _phone;
+        public List<string> Phone
+        {
+            get => _phone; set
+            {
+                _phone = value;
+                NotifyPropertyChanged();
+            }
+        }
 
-        // Эл. Почта
         public string Email { get; set; }
-
-        // Откуда узнал о клинике
         public string AsFound { get; set; }
+
+        #region INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        // This method is called by the Set accessor of each property.
+        // The CallerMemberName attribute that is applied to the optional propertyName
+        // parameter causes the property name of the caller to be substituted as an argument.
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        #endregion
     }
 }

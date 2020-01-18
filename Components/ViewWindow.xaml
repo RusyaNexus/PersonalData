@@ -17,7 +17,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        
+
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
@@ -74,42 +74,55 @@
                 <Label Grid.Row="0"
                        Content="Фамилия" />
                 <TextBox Grid.Row="1"
+                         Text="{Binding Surname}"
                          Name="SurnameTextBox"
-                         Height="26" />
+                         Height="26">
+                </TextBox>
 
                 <Label Grid.Row="2"
                        Content="Имя" />
                 <TextBox Grid.Row="3"
+                         Text="{Binding Name}"
                          Name="NameTextBox"
                          Height="26" />
 
                 <Label Grid.Row="4"
                        Content="Отчество" />
                 <TextBox Grid.Row="5"
+                         Text="{Binding MiddleName}"
                          Name="MiddleNameTextBox"
                          Height="26" />
 
                 <Label Grid.Row="6"
                        Content="Пол" />
-                <TextBox Grid.Row="7"
+                <!--<TextBox Grid.Row="7"
                          Name="GenderTextBox"
-                         Height="26" />
+                         Height="26" />-->
+                <ComboBox Grid.Row="7"
+                          Text="{Binding Gender}"
+                          Name="GenderComboBox">
+                    <ComboBoxItem Content="Мужчина"/>
+                    <ComboBoxItem Content="Женщина"/>
+                </ComboBox>
 
                 <Label Grid.Row="8"
                        Content="Дата рождения" />
                 <TextBox Grid.Row="9"
+                         Text="{Binding Birthday, StringFormat='yyyy-MM-dd'}"
                          Name="BirthdayTextBox"
                          Height="26" />
 
                 <Label Grid.Row="10"
                        Content="Страна" />
                 <TextBox Grid.Row="11"
+                         Text="{Binding Country}"
                          Name="CountryTextBox"
                          Height="26" />
 
                 <Label Grid.Row="12"
                        Content="Область" />
                 <TextBox Grid.Row="13"
+                         Text="{Binding Region}"
                          Name="RegionTextBox"
                          Height="26" />
 
@@ -168,42 +181,49 @@
                     <Label Grid.Row="0"
                        Content="Город" />
                     <TextBox Grid.Row="1"
+                             Text="{Binding City}"
                              Name="CityTextBox"
                              Height="26" />
 
                     <Label Grid.Row="2"
                        Content="Адрес" />
                     <TextBox Grid.Row="3"
+                             Text="{Binding Address}"
                              Name="AddressTextBox"
                              Height="26" />
 
                     <Label Grid.Row="4"
                        Content="Телефон" />
                     <TextBox Grid.Row="5"
+                             Text="{Binding Phone}"
                              Name="PhoneTextBox"
                              Height="26" />
 
                     <Label Grid.Row="6"
                        Content="Второй доп. Телефон" />
                     <TextBox Grid.Row="7"
+                             Text="{Binding PhoneSecond}"
                              Name="PhoneSecondTextBox"
                              Height="26" />
 
                     <Label Grid.Row="8"
                        Content="Третий доп. Телефон" />
                     <TextBox Grid.Row="9"
+                             Text="{Binding PhoneThird}"
                              Name="PhoneThirdTextBox"
                              Height="26" />
 
                     <Label Grid.Row="10"
                        Content="Почта" />
                     <TextBox Grid.Row="11"
+                             Text="{Binding Email}"
                              Name="EmailTextBox"
                              Height="26" />
 
                     <Label Grid.Row="12"
                        Content="Откуда узнал" />
                     <TextBox Grid.Row="13"
+                             Text="{Binding AsFound}"
                              Name="AsFoundTextBox"
                              Height="26" />
                 </Grid>

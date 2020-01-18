@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:converters="clr-namespace:PersonalData.Convertors"
         mc:Ignorable="d"
         Title="Персональные данные" 
         Icon="favicon.ico"
@@ -10,6 +11,10 @@
         Height="700" 
         MinWidth="1000"
         Width="1000">
+
+    <Window.Resources>
+        <converters:SexEnumTypeToListConverter x:Key="SexEnumTypeToListConverter" />
+    </Window.Resources>
 
     <Grid Margin="10">
 
@@ -22,31 +27,63 @@
         <TextBox Name="textFilter" TextChanged="textFilter_TextChanged" />
 
         <Grid Grid.Row="1">
-            <ListView Name="lvAccounts">
-                <ListView.View>
-                    <GridView AllowsColumnReorder="False">
-                        <GridViewColumn Header="ID" Width="auto" DisplayMemberBinding="{Binding UserID}" />
-                        <GridViewColumn Header="Фамилия" Width="auto" DisplayMemberBinding="{Binding Surname}" />
-                        <GridViewColumn Header="Имя" Width="auto" DisplayMemberBinding="{Binding Name}" />
-                        <GridViewColumn Header="Отчество" Width="auto" DisplayMemberBinding="{Binding MiddleName}" />
-                        <GridViewColumn Header="Пол" Width="auto" DisplayMemberBinding="{Binding Gender}" />
-                        <GridViewColumn Header="Дата рождения" Width="auto" DisplayMemberBinding="{Binding Birthday, StringFormat='yyyy-MM-dd'}" />
-                        <GridViewColumn Header="Страна" Width="auto" DisplayMemberBinding="{Binding Country}" />
-                        <GridViewColumn Header="Область" Width="auto" DisplayMemberBinding="{Binding Region}" />
-                        <GridViewColumn Header="Город" Width="auto" DisplayMemberBinding="{Binding City}" />
-                        <GridViewColumn Header="Адрес" Width="auto" DisplayMemberBinding="{Binding Address}" />
-                        <GridViewColumn Header="Телефон" Width="auto" DisplayMemberBinding="{Binding Phone}" />
-                        <GridViewColumn Header="Почта" Width="auto">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding Email}" TextDecorations="Underline" Foreground="Blue" />
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="Откуда узнал" Width="auto" DisplayMemberBinding="{Binding AsFound}" />
-                    </GridView>
-                </ListView.View>
-            </ListView>
+            <DataGrid Name="lvAccounts" IsReadOnly="True" AutoGenerateColumns="False" RowDetailsVisibilityChanged="lvAccounts_RowDetailsVisibilityChanged">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Width="auto" Binding="{Binding Id}" />
+                    <DataGridTextColumn Header="Фамилия" Width="auto" Binding="{Binding Surname}" />
+                    <DataGridTextColumn Header="Имя" Width="auto" Binding="{Binding Name}" />
+                    <DataGridTextColumn Header="Отчество" Width="auto" Binding="{Binding MiddleName}" />
+                    <DataGridTextColumn Header="Пол" Width="auto" Binding="{Binding Gender, Converter={StaticResource SexEnumTypeToListConverter}}" />
+                    <DataGridTextColumn Header="Дата рождения" Width="auto" Binding="{Binding Birthday, StringFormat='yyyy-MM-dd'}" />
+                    <DataGridTextColumn Header="Почта" Width="auto" Binding="{Binding Email}" Foreground="Blue" />
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button BorderThickness="0"  Content="Изменить" Click="Edit_Client" DataContext="{Binding}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button BorderThickness="0"  Content="X" Click="Delete_Client" DataContext="{Binding}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+                <DataGrid.RowDetailsTemplate>
+                    <DataTemplate>
+                        <Border BorderThickness="0" Background="BlanchedAlmond" Padding="10">
+                            <StackPanel Orientation="Vertical">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock FontSize="12" Text="Страна: " VerticalAlignment="Center" />
+                                    <TextBlock FontSize="16" Foreground="MidnightBlue" Text="{Binding Country}" VerticalAlignment="Center" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock FontSize="12" Text="Область: " VerticalAlignment="Center" />
+                                    <TextBlock FontSize="16" Foreground="MidnightBlue" Text="{Binding Region}" VerticalAlignment="Center" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock FontSize="12" Text="Город: " VerticalAlignment="Center" />
+                                    <TextBlock FontSize="16" Foreground="MidnightBlue" Text="{Binding City}" VerticalAlignment="Center" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock FontSize="12" Text="Адрес: " VerticalAlignment="Center" />
+                                    <TextBlock FontSize="16" Foreground="MidnightBlue" Text="{Binding Address}" VerticalAlignment="Center" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock FontSize="12" Text="Откуда узнал: " VerticalAlignment="Center" />
+                                    <TextBlock FontSize="16" Foreground="MidnightBlue" Text="{Binding AsFound}" VerticalAlignment="Center" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock FontSize="12" Text="Телефоны: " VerticalAlignment="Top" />
+                                    <ListBox FontSize="16" Foreground="MidnightBlue" ItemsSource="{Binding Phone}" VerticalAlignment="Top" />
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </DataGrid.RowDetailsTemplate>
+            </DataGrid>
         </Grid>
 
         <Grid Grid.Row="2">
