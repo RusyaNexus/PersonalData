@@ -11,5 +11,6 @@ Recommended for Debug
 It's full path for Database file 'db.sqlite'
 
 Recommended for Release
+
 2) App.config -> <add name="DefaultConnection" connectionString="Data Source=.\db.sqlite" />
 It's the path next to the .exe file 'db.sqlite'
