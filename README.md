@@ -2,6 +2,7 @@
 ![alt text](Present.png)
 ![alt text](Present2.png)
 Filter works by 'Surname' field
+
 Database SqLite Connection:
 Recommended for Debug
 1) App.config -> <add name="DefaultConnection" connectionString="Data Source=D:\GitProjects\ForStudy\PersonalData\db.sqlite" />
