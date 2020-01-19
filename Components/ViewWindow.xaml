@@ -3,12 +3,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:converters="clr-namespace:PersonalData.Convertors"
         mc:Ignorable="d"
         Title="Добавить клиента"
         Icon="..\favicon.ico"
         Height="510" 
         Width="450"
         ResizeMode="NoResize">
+
+    <Window.Resources>
+        <converters:EnumToIntConverter x:Key="EnumToIntConverter" />
+    </Window.Resources>
 
     <Grid>
 
@@ -72,58 +77,61 @@
                 </Grid.Resources>
 
                 <Label Grid.Row="0"
-                       Content="Фамилия" />
+                       Content="Фамилия(*)" />
                 <TextBox Grid.Row="1"
                          Text="{Binding Surname}"
                          Name="SurnameTextBox"
+                         MaxLength="20"
                          Height="26">
                 </TextBox>
 
                 <Label Grid.Row="2"
-                       Content="Имя" />
+                       Content="Имя(*)" />
                 <TextBox Grid.Row="3"
                          Text="{Binding Name}"
                          Name="NameTextBox"
+                         MaxLength="20"
                          Height="26" />
 
                 <Label Grid.Row="4"
-                       Content="Отчество" />
+                       Content="Отчество(*)" />
                 <TextBox Grid.Row="5"
                          Text="{Binding MiddleName}"
                          Name="MiddleNameTextBox"
+                         MaxLength="20"
                          Height="26" />
 
                 <Label Grid.Row="6"
-                       Content="Пол" />
-                <!--<TextBox Grid.Row="7"
-                         Name="GenderTextBox"
-                         Height="26" />-->
+                       Content="Пол(*)" />
                 <ComboBox Grid.Row="7"
-                          Text="{Binding Gender}"
+                          SelectedIndex="{Binding Gender, Converter={StaticResource EnumToIntConverter}}"
                           Name="GenderComboBox">
                     <ComboBoxItem Content="Мужчина"/>
                     <ComboBoxItem Content="Женщина"/>
                 </ComboBox>
 
                 <Label Grid.Row="8"
-                       Content="Дата рождения" />
+                       Content="Дата(гггг-мм-дд)(*)" />
                 <TextBox Grid.Row="9"
                          Text="{Binding Birthday, StringFormat='yyyy-MM-dd'}"
                          Name="BirthdayTextBox"
+                         MaxLength="10"
                          Height="26" />
 
                 <Label Grid.Row="10"
-                       Content="Страна" />
+                       Content="Страна(*)" />
                 <TextBox Grid.Row="11"
                          Text="{Binding Country}"
                          Name="CountryTextBox"
+                         MaxLength="20"
                          Height="26" />
 
                 <Label Grid.Row="12"
-                       Content="Область" />
+                       Content="Область(*)" />
                 <TextBox Grid.Row="13"
                          Text="{Binding Region}"
                          Name="RegionTextBox"
+                         MaxLength="20"
                          Height="26" />
 
             </Grid>
@@ -179,59 +187,66 @@
 
 
                     <Label Grid.Row="0"
-                       Content="Город" />
+                       Content="Город(*)" />
                     <TextBox Grid.Row="1"
                              Text="{Binding City}"
                              Name="CityTextBox"
+                             MaxLength="20"
                              Height="26" />
 
                     <Label Grid.Row="2"
-                       Content="Адрес" />
+                       Content="Адрес(*)" />
                     <TextBox Grid.Row="3"
                              Text="{Binding Address}"
                              Name="AddressTextBox"
+                             MaxLength="20"
                              Height="26" />
 
                     <Label Grid.Row="4"
-                       Content="Телефон" />
+                       Content="Телефон(*)" />
                     <TextBox Grid.Row="5"
-                             Text="{Binding Phone}"
+                             Text="{Binding Phone[0]}"
                              Name="PhoneTextBox"
+                             MaxLength="20"
                              Height="26" />
 
                     <Label Grid.Row="6"
                        Content="Второй доп. Телефон" />
                     <TextBox Grid.Row="7"
-                             Text="{Binding PhoneSecond}"
+                             Text="{Binding Phone[1]}"
                              Name="PhoneSecondTextBox"
+                             MaxLength="20"
                              Height="26" />
 
                     <Label Grid.Row="8"
                        Content="Третий доп. Телефон" />
                     <TextBox Grid.Row="9"
-                             Text="{Binding PhoneThird}"
+                             Text="{Binding Phone[2]}"
                              Name="PhoneThirdTextBox"
+                             MaxLength="20"
                              Height="26" />
 
                     <Label Grid.Row="10"
-                       Content="Почта" />
+                       Content="Почта(*)" />
                     <TextBox Grid.Row="11"
                              Text="{Binding Email}"
                              Name="EmailTextBox"
+                             MaxLength="30"
                              Height="26" />
 
                     <Label Grid.Row="12"
-                       Content="Откуда узнал" />
+                       Content="Откуда узнал(*)" />
                     <TextBox Grid.Row="13"
                              Text="{Binding AsFound}"
                              Name="AsFoundTextBox"
+                             MaxLength="30"
                              Height="26" />
                 </Grid>
             </Grid>
         </Grid>
 
         <Grid Grid.Row="2">
-            <Button Name="AddClient"
+            <Button Name="AddClientButton"
                     Content="Добавить клиента"
                     Click="Add_Client"/>
         </Grid>

@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
 
 namespace PersonalData.Models
@@ -10,8 +9,10 @@ namespace PersonalData.Models
 
     public class Account : INotifyPropertyChanged
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
+
         public string Surname { get; set; }
+
         public string Name { get; set; }
         public string MiddleName { get; set; }
         public SexType Gender { get; set; }
@@ -21,10 +22,11 @@ namespace PersonalData.Models
         public string City { get; set; }
         public string Address { get; set; }
 
-        private List<string> _phone;
-        public List<string> Phone
+        private ObservableCollection<string> _phone;
+        public ObservableCollection<string> Phone
         {
-            get => _phone; set
+            get => _phone;
+            set
             {
                 _phone = value;
                 NotifyPropertyChanged();
@@ -38,9 +40,6 @@ namespace PersonalData.Models
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        // This method is called by the Set accessor of each property.
-        // The CallerMemberName attribute that is applied to the optional propertyName
-        // parameter causes the property name of the caller to be substituted as an argument.
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
             if (PropertyChanged != null)

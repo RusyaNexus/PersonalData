@@ -8,54 +8,40 @@ namespace PersonalData.Components
 {
     public partial class ViewWindow : Window
     {
+        public Account Account { get; }
+
         public ViewWindow(Account account)
         {
             InitializeComponent();
 
             Title = "Изменить клиента";
+            AddClientButton.Content = "Изменить клиента";
 
-            DataContext = account;
+            Account = account;
+            DataContext = Account;
         }
 
         public ViewWindow()
         {
             InitializeComponent();
 
-            DataContext = new Account();
+            Account = new Account()
+            {
+                Id = Guid.NewGuid().ToString(),
+                Phone = new ObservableCollection<string>()
+                {
+                    "",
+                    "",
+                    ""
+                }
+            };
+            DataContext = Account;
         }
 
         private void Add_Client(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                if ((sender as Button)?.DataContext is Account account)
-                {
-                    (lvAccounts.ItemsSource as ObservableCollection<Account>).Add(account);
-                    MessageBox.Show("Аккаунт был успешно добавлен!", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            DialogResult = true;
+            Close();
         }
-
-        //1) public ViewWindow(Account account)
-        //{
-        //    InitializeComponent();
-
-        //    Title = "Изменить клиента";
-
-        //    DataContext = account;
-        //}
-        //2) <ComboBox Grid.Row="7"
-        //                  Text= "{Binding Gender}"
-        //                  Name= "GenderComboBox" >
-        //            < ComboBoxItem Content= "Мужчина" />
-        //            < ComboBoxItem Content= "Женщина" />
-        //        </ ComboBox >
-
-        //    3) Binding Phone for edit
-        //4) FOREIGN KEY(ACCOUNT_ID) REFERENCES Accounts(ID)
     }
 }

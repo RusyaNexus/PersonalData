@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PersonalData.Dapper;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
